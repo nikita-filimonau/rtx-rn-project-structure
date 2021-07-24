@@ -1,0 +1,96 @@
+stages:
+  - test
+  - deployment
+
+variables:
+  LC_ALL: "en_US.UTF-8"
+  LANG: "en_US.UTF-8"
+  GITLAB_URL: "YOUR_GIT_LAB_URL"
+
+before_script:
+  - bundle install --path vendor/bundle
+  - yarn start
+
+dev:ios:
+  stage: deployment
+  script:
+    - react-native link
+    - cd ios
+    - pod install
+    - cd ..
+    - bundle exec fastlane env
+    - yarn deploy:dev:ios
+  tags:
+    - ios
+  when: manual
+
+dev:android:
+  stage: deployment
+  script:
+    - react-native link
+    - bundle exec fastlane env
+    - yarn deploy:dev:android
+  tags:
+    - android
+  when: manual
+
+stage:ios:
+  stage: deployment
+  script:
+    - react-native link
+    - cd ios
+    - pod install
+    - cd ..
+    - bundle exec fastlane env
+    - yarn deploy:stage:ios
+  tags:
+    - ios
+  when: manual
+
+stage:android:
+  stage: deployment
+  script:
+    - react-native link
+    - bundle exec fastlane env
+    - yarn deploy:stage:android
+  tags:
+    - android
+  when: manual
+
+dev:all:
+  stage: deployment
+  script:
+    - react-native link
+    - cd ios
+    - pod install
+    - cd ..
+    - bundle exec fastlane env
+    - yarn deploy:dev
+  tags:
+    - ios
+    - android
+  when: manual
+
+stage:all:
+  stage: deployment
+  script:
+    - react-native link
+    - cd ios
+    - pod install
+    - cd ..
+    - bundle exec fastlane env
+    - yarn deploy:stage
+  tags:
+    - ios
+    - android
+  when: manual
+
+test:
+  stage: test
+  script:
+    - cd common
+    - yarn test
+    - cd ..
+  tags:
+    - mobile
+  when: manual
