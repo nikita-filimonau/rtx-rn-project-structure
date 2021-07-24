@@ -1,0 +1,7 @@
+# android
+json_key_file("./android/{YOUR_GOOGLE_CLOUD_FILE}.json")
+package_name("com.myapp")
+
+# ios
+apple_id("")
+team_id("")
