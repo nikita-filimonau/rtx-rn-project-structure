@@ -95,7 +95,7 @@ Files that should be clear / removed if project will be shared (or should be res
 - certificates (whole folder)
 - android/local.properties
 - android/key.properties
-- android/dist-mobile-659450b457d1.json
+- android/{GOOGLE_CLOUD_FILE}.json
 - android/app/dev_stage_key.jks
 - android/app/src/dev/google-services.json
 - android/app/src/stage/google-services.json
